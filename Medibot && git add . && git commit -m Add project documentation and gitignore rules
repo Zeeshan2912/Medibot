@@ -1,0 +1,187 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mindex e69de29..3efb75c 100644[m
+[1m--- a/.gitignore[m
+[1m+++ b/.gitignore[m
+[36m@@ -0,0 +1,39 @@[m
+[32m+[m[32m# Environment variables[m
+[32m+[m[32m.env[m
+[32m+[m
+[32m+[m[32m# Python cache[m
+[32m+[m[32m__pycache__/[m
+[32m+[m[32m*.py[cod][m
+[32m+[m[32m*$py.class[m
+[32m+[m[32m*.so[m
+[32m+[m
+[32m+[m[32m# Virtual environments[m
+[32m+[m[32mvenv/[m
+[32m+[m[32menv/[m
+[32m+[m[32mENV/[m
+[32m+[m
+[32m+[m[32m# Jupyter Notebook checkpoints[m
+[32m+[m[32m.ipynb_checkpoints[m
+[32m+[m
+[32m+[m[32m# IDE files[m
+[32m+[m[32m.vscode/[m
+[32m+[m[32m.idea/[m
+[32m+[m[32m*.swp[m
+[32m+[m[32m*.swo[m
+[32m+[m
+[32m+[m[32m# OS generated files[m
+[32m+[m[32m.DS_Store[m
+[32m+[m[32m.DS_Store?[m
+[32m+[m[32m._*[m
+[32m+[m[32m.Spotlight-V100[m
+[32m+[m[32m.Trashes[m
+[32m+[m[32mehthumbs.db[m
+[32m+[m[32mThumbs.db[m
+[32m+[m
+[32m+[m[32m# Model cache (optional - uncomment if models are too large)[m
+[32m+[m[32m# models/[m
+[32m+[m[32m# .cache/[m
+[32m+[m
+[32m+[m[32m# Temporary files[m
+[32m+[m[32m*.tmp[m
+[32m+[m[32m*.temp[m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex e69de29..170f2b4 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -0,0 +1,120 @@[m
+[32m+[m[32m# Medibot - Medical AI Assistant[m
+[32m+[m
+[32m+[m[32mA Streamlit-based medical chatbot that uses Retrieval Augmented Generation (RAG) with a local Large Language Model to answer medical queries based on medical literature.[m
+[32m+[m
+[32m+[m[32m## Features[m
+[32m+[m
+[32m+[m[32m- **Local LLM Integration**: Uses EleutherAI/gpt-neo-1.3B model for text generation[m
+[32m+[m[32m- **RAG Pipeline**: Combines document retrieval with language generation for accurate answers[m
+[32m+[m[32m- **FAISS Vector Database**: Efficient similarity search for relevant medical content[m
+[32m+[m[32m- **Streamlit Interface**: User-friendly web interface for medical queries[m
+[32m+[m[32m- **Medical Document Processing**: Processes PDF medical literature for knowledge base[m
+[32m+[m
+[32m+[m[32m## Project Structure[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mMedibot/[m
+[32m+[m[32m├── medibot.py                      # Main Streamlit application[m
+[32m+[m[32m├── create_memory_for_llm.py        # Script to create FAISS vector store[m
+[32m+[m[32m├── connect_memory_with_llm.py      # RAG pipeline implementation[m
+[32m+[m[32m├── test_hf_direct_api.py          # Hugging Face API testing utility[m
+[32m+[m[32m├── data/                          # Medical documents directory[m
+[32m+[m[32m├── vectorstore/db_faiss/          # FAISS database files[m
+[32m+[m[32m├── .streamlit/config.toml         # Streamlit configuration[m
+[32m+[m[32m└── requirements.txt               # Python dependencies[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m## Setup Instructions[m
+[32m+[m
+[32m+[m[32m### 1. Clone the Repository[m
+[32m+[m[32m```bash[m
+[32m+[m[32mgit clone https://github.com/Zeeshan2912/Medibot.git[m
+[32m+[m[32mcd Medibot[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m### 2. Create Virtual Environment[m
+[32m+[m[32m```bash[m
+[32m+[m[32mpython -m venv venv[m
+[32m+[m[32msource venv/bin/activate  # On Windows: venv\Scripts\activate[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m### 3. Install Dependencies[m
+[32m+[m[32m```bash[m
+[32m+[m[32mpip install -r requirements.txt[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m### 4. Set Up Environment Variables[m
+[32m+[m[32mCreate a `.env` file in the root directory:[m
+[32m+[m[32m```[m
+[32m+[m[32mHUGGINGFACEHUB_API_TOKEN=your_huggingface_token_here[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m### 5. Prepare Medical Documents[m
+[32m+[m[32m- Place your medical PDF documents in the `data/` directory[m
+[32m+[m[32m- Run the vector store creation script:[m
+[32m+[m[32m```bash[m
+[32m+[m[32mpython create_memory_for_llm.py[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m### 6. Run the Application[m
+[32m+[m[32m```bash[m
+[32m+[m[32mstreamlit run medibot.py[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m## Usage[m
+[32m+[m
+[32m+[m[32m1. Open your browser and navigate to the Streamlit interface (typically `http://localhost:8501`)[m
+[32m+[m[32m2. Enter your medical query in the text input field[m
+[32m+[m[32m3. Click "Get Answer" to receive a contextual response based on medical literature[m
+[32m+[m[32m4. The system will display both the AI-generated answer and relevant source excerpts[m
+[32m+[m
+[32m+[m[32m## Technical Details[m
+[32m+[m
+[32m+[m[32m### RAG Pipeline[m
+[32m+[m[32m- **Document Processing**: PDFs are split into chunks and embedded using HuggingFace embeddings[m
+[32m+[m[32m- **Vector Storage**: FAISS database for efficient similarity search[m
+[32m+[m[32m- **Retrieval**: Top-k relevant documents are retrieved for each query[m
+[32m+[m[32m- **Generation**: Local LLM generates answers based on retrieved context[m
+[32m+[m
+[32m+[m[32m### Model Configuration[m
+[32m+[m[32m- **LLM**: EleutherAI/gpt-neo-1.3B (runs locally)[m
+[32m+[m[32m- **Embeddings**: HuggingFace sentence transformers[m
+[32m+[m[32m- **Vector Store**: FAISS with cosine similarity[m
+[32m+[m[32m- **Interface**: Streamlit for web-based interaction[m
+[32m+[m
+[32m+[m[32m## Dependencies[m
+[32m+[m
+[32m+[m[32m- streamlit[m
+[32m+[m[32m- langchain[m
+[32m+[m[32m- langchain-community[m
+[32m+[m[32m- langchain-huggingface[m
+[32m+[m[32m- faiss-cpu[m
+[32m+[m[32m- transformers[m
+[32m+[m[32m- torch[m
+[32m+[m[32m- pypdf[m
+[32m+[m[32m- python-dotenv[m
+[32m+[m
+[32m+[m[32m## Troubleshooting[m
+[32m+[m
+[32m+[m[32m### Common Issues[m
+[32m+[m
+[32m+[m[32m1. **Torch RuntimeError**: Ensure `.streamlit/config.toml` is configured correctly[m
+[32m+[m[32m2. **Import Errors**: Make sure all dependencies are installed with correct versions[m
+[32m+[m[32m3. **Model Loading**: Check internet connection for initial model download[m
+[32m+[m[32m4. **Memory Issues**: Ensure sufficient RAM for model loading (minimum 8GB recommended)[m
+[32m+[m
+[32m+[m[32m## Contributing[m
+[32m+[m
+[32m+[m[32m1. Fork the repository[m
+[32m+[m[32m2. Create a feature branch[m
+[32m+[m[32m3. Make your changes[m
+[32m+[m[32m4. Add tests if applicable[m
+[32m+[m[32m5. Submit a pull request[m
+[32m+[m
+[32m+[m[32m## License[m
+[32m+[m
+[32m+[m[32mThis project is open source and available under the MIT License.[m
+[32m+[m
+[32m+[m[32m## Disclaimer[m
+[32m+[m
+[32m+[m[32mThis tool is for educational and research purposes only. Always consult qualified medical professionals for actual medical advice and diagnosis.[m
+[1mdiff --git a/requirements.txt b/requirements.txt[m
+[1mindex e69de29..1ce7d5b 100644[m
+[1m--- a/requirements.txt[m
+[1m+++ b/requirements.txt[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32mstreamlit==1.32.0[m
+[32m+[m[32mlangchain==0.1.0[m
+[32m+[m[32mlangchain-community==0.0.20[m
+[32m+[m[32mlangchain-huggingface==0.0.1[m
+[32m+[m[32mfaiss-cpu==1.8.0[m
+[32m+[m[32mtransformers==4.37.0[m
+[32m+[m[32mtorch==2.1.0[m
+[32m+[m[32mpypdf==4.0.1[m
+[32m+[m[32mpython-dotenv==1.0.0[m
+[32m+[m[32msentence-transformers==2.2.2[m
+[32m+[m[32mhuggingface-hub==0.20.0[m
+[32m+[m[32mnumpy==1.24.0[m
+[32m+[m[32mpandas==2.1.0[m
